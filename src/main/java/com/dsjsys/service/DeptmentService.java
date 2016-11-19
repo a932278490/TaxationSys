@@ -6,6 +6,7 @@ import java.util.Map;
 import com.dsjsys.pojo.Deptment;
 import com.dsjsys.tools.core.mapper.util.Pager;
 
+
 public interface DeptmentService {
 	/**
 	 *修改单条数据

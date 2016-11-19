@@ -112,8 +112,8 @@ function addPeople(count){
     <li><label>出车事由<b>*</b></label><input name="reason" type="text" class="dfinput" value="请填写出车原因"  style="width:518px;"/></li>
    
     <li><label>出车人数<b>*</b></label>  
-	    <div class="vocation">
-		    <select class="select1" name="pcount" onchange="addPeople(this.value)">
+	    <div class="cityleft" >
+		    <select class="select2" name="pcount" onchange="addPeople(this.value)" >
 			    <option value="0">0人</option>
 				<option value="1">1人</option>
 				<option value="2">2人</option>
@@ -127,17 +127,19 @@ function addPeople(count){
 	    </div>
     
     </li>
+
+
+    
     <li ><label>乘车人<b>*</b></label>
 	    <div id="pname" class="usercity">
 	    </div>
-	    
     </li>
     
     <li><label>出发时间<b>*</b></label>
-    <input name="beginDate" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"  class="dfinput"  style="width:190px;"/></li>
+    <input name="beginDate" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"  class="dfinput"  style="width:167px;"/></li>
    
    <li><label>还车时间<b>*</b></label>
-    <input name="endDate" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"  class="dfinput"  style="width:190px;"/></li>
+    <input name="endDate" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"  class="dfinput"  style="width:167px;"/></li>
    
     
     

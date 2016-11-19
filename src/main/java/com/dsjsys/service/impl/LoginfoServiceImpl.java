@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dsjsys.annotation.SystemServiceLog;
 import com.dsjsys.mapper.LoginfoMapper;
@@ -15,6 +16,7 @@ import com.dsjsys.service.LoginfoService;
 import com.dsjsys.tools.core.mapper.util.Pager;
 
 @Service
+@Transactional
 public class LoginfoServiceImpl implements LoginfoService {
 
 	@Resource

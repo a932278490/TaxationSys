@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dsjsys.mapper.StuffMapper;
 import com.dsjsys.pojo.Stuff;
@@ -14,6 +15,7 @@ import com.dsjsys.service.StuffService;
 import com.dsjsys.tools.core.mapper.util.Pager;
 
 @Service
+@Transactional
 public class StuffServiceImpl implements StuffService{
 
 	@Resource
