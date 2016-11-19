@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dsjsys.pojo.DeptmentMapper" >
+ <sql id="Base_Column_List">
+     id, name, charge
+  </sql>
+ <select id="findOne" parameterType="map" resultType="com.dsjsys.pojo.Deptment">
+ 	select 
+ 	<include refid="Base_Column_List" />
+ 	 from deptment 
+	 <where>
+	 	<include refid="condition"/>
+	 </where>
+ </select>
+ <!-- 根据id查询-->
+	<select id="fetch" parameterType="Long" resultType="com.dsjsys.pojo.Deptment">
+		select 
+		<include refid="Base_Column_List" /> 
+		from deptment where id=#{id}
+	</select>
+ <!-- 根据id删除-->
+	<delete id="deleteById" parameterType="Long">
+		delete from Deptment where id=#{id}
+	</delete>
+ 
+ <!-- 根据对象进行保存-->
+	<insert id="insert" parameterType="com.dsjsys.pojo.Deptment">
+    insert into deptment (id, name, charge)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{charge,jdbcType=VARCHAR})
+  </insert>
+<!-- 根据条件查询-->
+	<select id="queryList" parameterType="map" resultType="com.dsjsys.pojo.Deptment">
+		select <include refid="Base_Column_List" />  from Deptment
+		<where>
+			<include refid="condition"/>
+		<if test="keywords!=null">
+				and deptmentName like CONCAT(CONCAT('%', #{keywords} ), '%')
+			</if>
+		</where>
+		<if test="orderBy!=null">
+			order by ${orderBy} 
+		</if>
+		<if test="orderBy!=null and sortBy!=null">
+			${sortBy} 
+		</if>
+		<if test="beginRow!=null and pageSize!=null">
+			limit #{beginRow},#{pageSize}
+		</if>
+	</select>
+<!-- 根据条件查询数量-->
+	<select id="count" parameterType="map" resultType="int">
+		select count(0) from Deptment
+		<where>
+			<include refid="condition"/>
+			<if test="keywords!=null">
+				and name like CONCAT(CONCAT('%', #{keywords} ), '%')
+			</if> 
+		</where>
+		
+	</select>
+<!-- 根据属性查询实体对象集合-->
+	<select id="findList" parameterType="map" resultType="com.dsjsys.pojo.Deptment">
+		select <include refid="Base_Column_List" />  from Deptment
+		<where>
+			<include refid="condition"/>
+		</where>
+	</select>
+
+<!--根据对象进行更新 ，不更新null属性-->
+	<update id="update" parameterType="com.dsjsys.pojo.Deptment">
+		update deptment
+       <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="charge != null">
+        charge = #{charge,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+    <sql id="condition" >
+           <if test="name != null">
+       and name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="charge != null">
+       and charge = #{charge,jdbcType=VARCHAR}
+      </if>
+    </sql>
+
+</mapper>

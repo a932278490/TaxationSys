@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dsjsys.pojo.StuffMapper" >
+ <resultMap id="BaseResultMap" type="com.dsjsys.pojo.Stuff">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="dept_id" jdbcType="BIGINT" property="deptId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="tele" jdbcType="VARCHAR" property="tele" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="locked" jdbcType="INTEGER" property="locked" />
+    <result column="role_id" jdbcType="BIGINT" property="roleId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, dept_id, name, tele, phone, password, locked, role_id
+  </sql>
+ <select id="findOne" parameterType="map" resultMap="BaseResultMap">
+ 	select 
+ 	<include refid="Base_Column_List" />
+ 	 from stuff 
+	 <where>
+	 	<include refid="condition"/>
+	 </where>
+ </select>
+ <!-- 根据id查询-->
+	<select id="fetch" parameterType="Long" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" /> 
+		from stuff where id=#{id}
+	</select>
+ <!-- 根据id删除-->
+	<delete id="deleteById" parameterType="Long">
+		delete from Stuff where id=#{id}
+	</delete>
+ 
+ <!-- 根据对象进行保存-->
+	<insert id="insert" parameterType="com.dsjsys.pojo.Stuff">
+    insert into stuff (id, dept_id, name, 
+      tele, phone, password, 
+      locked)
+    values (#{id,jdbcType=BIGINT}, #{deptId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{tele,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{locked,jdbcType=INTEGER})
+  </insert>
+<!-- 根据条件查询-->
+	<select id="queryList" parameterType="map" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />  from Stuff
+		<where>
+			<include refid="condition"/>
+		<if test="keywords!=null">
+				and stuffName like CONCAT(CONCAT('%', #{keywords} ), '%')
+			</if>
+		</where>
+		<if test="orderBy!=null">
+			order by ${orderBy} 
+		</if>
+		<if test="orderBy!=null and sortBy!=null">
+			${sortBy} 
+		</if>
+		<if test="beginRow!=null and pageSize!=null">
+			limit #{beginRow},#{pageSize}
+		</if>
+	</select>
+<!-- 根据条件查询数量-->
+	<select id="count" parameterType="map" resultType="int">
+		select count(0) from Stuff
+		<where>
+			<include refid="condition"/>
+			<if test="keywords!=null">
+				and name like CONCAT(CONCAT('%', #{keywords} ), '%')
+			</if> 
+		</where>
+		
+	</select>
+<!-- 根据属性查询实体对象集合-->
+	<select id="findList" parameterType="map" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />  from Stuff
+		<where>
+			<include refid="condition"/>
+		</where>
+	</select>
+
+<!--根据对象进行更新 ，不更新null属性-->
+	<update id="update" parameterType="com.dsjsys.pojo.Stuff">
+		update stuff
+    <set>
+      <if test="deptId != null">
+        dept_id = #{deptId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="tele != null">
+        tele = #{tele,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="locked != null">
+        locked = #{locked,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+    <sql id="condition" >
+      <if test="deptId != null">
+       and dept_id = #{deptId,jdbcType=BIGINT}
+      </if>
+      <if test="name != null">
+       and name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="tele != null">
+       and tele = #{tele,jdbcType=VARCHAR}
+      </if>
+      <if test="phone != null">
+       and phone = #{phone,jdbcType=VARCHAR}
+      </if>
+      <if test="password != null">
+       and password = #{password,jdbcType=VARCHAR}
+      </if>
+      <if test="locked != null">
+       and locked = #{locked,jdbcType=INTEGER}
+      </if>
+      <if test="roleId != null">
+       and role_id = #{roleId,jdbcType=BIGINT}
+      </if>
+    </sql>
+
+</mapper>
