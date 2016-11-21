@@ -47,9 +47,10 @@ public class StuffController {
 		Map<String,Object> condition=new HashMap<String,Object>();
 		Pager<Stuff> stuffPager = stuffServiceImpl.queryPage(condition, currentPage, pageSize,null,null);
 		for(int i=0;i<stuffPager.getDataList().size();i++){
-			Deptment deptment = deptmentServiceImpl.fetch(stuffPager.getDataList().get(i).getDeptId());
+			long deptId = stuffPager.getDataList().get(i).getDeptId();
+			Object deptment = deptmentServiceImpl.fetch(deptId);
 			Role roleTemp = roleServiceImpl.fetch(stuffPager.getDataList().get(i).getRoleId());
-			stuffPager.getDataList().get(i).setDeptment(deptment);
+			stuffPager.getDataList().get(i).setDeptment((Deptment)deptment);
 			stuffPager.getDataList().get(i).setRole(roleTemp);
 		}
 		req.setAttribute("stuffPager", stuffPager);

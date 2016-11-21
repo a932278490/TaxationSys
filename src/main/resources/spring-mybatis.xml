@@ -65,8 +65,14 @@
         <property name="dataSource" ref="dataSource" />  
     </bean>  
 	<!-- 启用缓存 -->
-<!-- 	 <cache:annotation-driven cache-manager="cacheManager"/>  -->
-	<!-- 缓存设置  -->
+    <!-- <cache:annotation-driven cache-manager="cacheManager"/>
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+    	<property name="cacheManager" ref="ehcache"></property>
+    </bean>
+    <bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">  
+        <property name="configLocation" value="classpath:ehcache.xml"></property>  
+    </bean>  -->
+    
 	 <aop:aspectj-autoproxy/>  
 	<!-- <bean id="myInterceptor" class="com.dsjsys.aspect.MyInterceptor"></bean> -->
 	<!-- <aop:config proxy-target-class="true">
