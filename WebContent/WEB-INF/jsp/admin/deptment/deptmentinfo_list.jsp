@@ -96,7 +96,7 @@ $(document).ready(function(){
     </table>
     
    
-    <div class="pagin">
+    <%-- <div class="pagin">
     	<div class="message">共<i class="blue">${deptmentPager.totalCount }</i>条记录，当前显示第&nbsp;<i class="blue">${deptmentList.currentPage }&nbsp;</i>页</div>
         <ul class="paginList">
         <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
@@ -109,7 +109,8 @@ $(document).ready(function(){
         <li class="paginItem"><a href="javascript:;">10</a></li>
         <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
         </ul>
-    </div>
+    </div> --%>
+    
     
     
     <div class="tip">
