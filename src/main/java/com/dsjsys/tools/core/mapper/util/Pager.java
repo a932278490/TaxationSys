@@ -30,7 +30,7 @@ public class Pager<T> {
 				
 		if(null==pageSize){
 			
-			pageSize = 300;
+			pageSize = 10;
 			
 		}
 		

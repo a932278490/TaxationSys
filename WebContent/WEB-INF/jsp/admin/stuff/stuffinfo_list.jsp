@@ -101,20 +101,13 @@ $(document).ready(function(){
     </table>
     
    
-  <%--   <div class="pagin">
-    	<div class="message">共<i class="blue">${stuffPager.totalCount }</i>条记录，当前显示第&nbsp;<i class="blue">${deptmentList.currentPage }&nbsp;</i>页</div>
+      <div class="pagin">
+    	<div class="message">共<i class="blue">${stuffPager.totalCount }</i>条记录，当前显示第&nbsp;<i class="blue">${stuffPager.currentPage }&nbsp;</i>页</div>
         <ul class="paginList">
-        <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-        <li class="paginItem"><a href="javascript:;">1</a></li>
-        <li class="paginItem current"><a href="javascript:;">2</a></li>
-        <li class="paginItem"><a href="javascript:;">3</a></li>
-        <li class="paginItem"><a href="javascript:;">4</a></li>
-        <li class="paginItem"><a href="javascript:;">5</a></li>
-        <li class="paginItem more"><a href="javascript:;">...</a></li>
-        <li class="paginItem"><a href="javascript:;">10</a></li>
-        <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
+        <li class="paginItem"><a href="admin/stuff/list?currentPage=${stuffPager.currentPage-1 }"><span class="pagepre"></span></a></li>
+        <li class="paginItem"><a href="admin/stuff/list?currentPage=${stuffPager.currentPage+1 }"><span class="pagenxt"></span></a></li>
         </ul>
-    </div> --%>
+    </div> 
     
     
     <div class="tip">

@@ -92,7 +92,7 @@ function datadel(){
         <tbody>
        		<c:forEach items="${messageList}" var="c">
 				<tr class="text-c">
-					<td><input type="checkbox" value="${c.id } " checked="checked" name=""></td>
+					<td><input type="checkbox" value="${c.id } " checked="checked" name="" /></td>
 					<td>${c.id }</td>
 					<td>${c.content }</td>
 				</tr>

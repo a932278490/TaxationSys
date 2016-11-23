@@ -7,6 +7,7 @@ import com.dsjsys.pojo.Loginfo;
 import com.dsjsys.tools.core.mapper.util.Pager;
 
 public interface LoginfoService {
+	
 	/**
 	 *修改单条数据
 	 *@param project 当前实体（id不能为空）

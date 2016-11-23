@@ -45,13 +45,12 @@ public class LoginfoController {
 	}
 	
 	@AuthLevel(level=AuthConfig.level2)
-	@RequestMapping(value="/loginfo/delAll",method=RequestMethod.POST)
+	@RequestMapping(value="/loginfo/delAll",method=RequestMethod.GET)
 	public String delAll(){
 		List<Loginfo> loginfoList = loginfoServiceImpl.findAll();
 		for(int i = 0;i<loginfoList.size();i++){
 			loginfoServiceImpl.deleteById(loginfoList.get(i).getId());
 		}
-		
 		return "success/success";
 	}
 }
