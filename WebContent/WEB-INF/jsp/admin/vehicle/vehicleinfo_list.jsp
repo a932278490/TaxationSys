@@ -87,9 +87,10 @@ $(document).ready(function(){
 	        <tr>
 	        <td>
 	        <c:if test="${loginStuff.role.level>3 }">
-	        
+	        <c:if test="${loginStuff.role.name!='司机' }">
 	        <c:if test="${c.status==1 }">
 	        <a href="admin/vehicle/apply/distributePage?vehicleId=${c.id }"><font color="green"><strong>分配员工到该车</strong></font></a>
+	        </c:if>
 	        </c:if>
 	        </c:if>
 	        </td>

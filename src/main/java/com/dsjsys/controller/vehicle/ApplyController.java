@@ -242,13 +242,14 @@ public class ApplyController {
 		return new ModelAndView("admin/word/dsj",dataMap);  
 	}
 	
-	@AuthLevel(level=AuthConfig.level2)
+/*	@AuthLevel(level=AuthConfig.level2)
 	@SystemControllerLog(description="导出一条申请证明")
 	@RequestMapping(value="print",method=RequestMethod.GET)
 	public ResponseEntity<byte[]> print(HttpServletRequest req,HttpServletResponse response,VehicleApply vehicleApply) throws IOException{
 		
 		vehicleApply = this.vehicleApplyServiceImpl.fetch(vehicleApply.getId());
 		vehicleApply.setDeptment(deptmentServiceImpl.fetch(vehicleApply.getDeptId()));
+		vehicleApply.setStuff(this.stuffServiceImpl.fetch(vehicleApply.getStuffId()));
 		Stuff loginStuff = (Stuff)req.getSession().getAttribute("loginStuff");
 		WordUtil wu = new WordUtil();
 		Map<String,Object> dataMap= new HashMap<String, Object>();
@@ -279,7 +280,7 @@ public class ApplyController {
         headers.setContentDispositionFormData("attachment", fileName);   
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);   
         return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),headers, HttpStatus.CREATED);   
-	}
+	}*/
 	
 	@AuthLevel(level=AuthConfig.level2)
 	@SystemControllerLog(description="导出一条申请证明")
@@ -288,11 +289,11 @@ public class ApplyController {
 		
 		vehicleApply = this.vehicleApplyServiceImpl.fetch(vehicleApply.getId());
 		vehicleApply.setDeptment(deptmentServiceImpl.fetch(vehicleApply.getDeptId()));
-		Stuff loginStuff = (Stuff)req.getSession().getAttribute("loginStuff");
+		vehicleApply.setStuff(this.stuffServiceImpl.fetch(vehicleApply.getStuffId()));
 		WordUtil wu = new WordUtil();
 		Map<String,Object> dataMap= new HashMap<String, Object>();
 		dataMap.put("deptmentName", vehicleApply.getDeptment().getName());
-		dataMap.put("loginStuffName",loginStuff.getName());
+		dataMap.put("loginStuffName",vehicleApply.getStuff().getName());
 		dataMap.put("vehicleReason", vehicleApply.getReason());
 		dataMap.put("destination", vehicleApply.getDestination());
 		dataMap.put("pcount", vehicleApply.getPcount());

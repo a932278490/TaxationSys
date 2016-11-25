@@ -34,7 +34,7 @@ setTimeout(function(){
 setInterval(function(){
     Push();
     //alert("setInterval called");
-},60000);
+},10000);
 
 function Push(){
 	$.ajax({

@@ -44,6 +44,11 @@ public class AdminController {
 		return "admin/index/left";
 	}
 	
+	@RequestMapping("/help")
+	public String help(){
+		return "admin/index/help";
+	}
+	
 	@RequestMapping("/bootm")
 	public String bootm(HttpServletRequest res,Integer currentPage,Integer pageSize){
 		return "admin/index/bootm";

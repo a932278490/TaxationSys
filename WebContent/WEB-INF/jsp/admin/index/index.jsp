@@ -7,7 +7,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <base href="<%=basePath%>">
+    <base href="<%=basePath%>" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
 <link href="css/style.css" rel="stylesheet" type="text/css" />
@@ -29,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 		<div class="welinfo">
-			<span><img src="images/sun.png" alt="天气" /></span> <b>${loginStuff.name },欢迎使用信息管理系统</b>(${loginStuff.phone })
+			<span><img src="images/sun.png" alt="天气" /></span> <b>${loginStuff.name },欢迎使用信息管理系统</b><font color="red"><strong>(${loginStuff.role.name })</strong></font>
 			<a href="admin/system/loginStuff/stuffInfo">修改密码</a>
 		</div>
 
