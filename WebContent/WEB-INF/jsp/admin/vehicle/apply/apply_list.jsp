@@ -149,7 +149,9 @@ $(document).ready(function(){
 					<a title="导出" href="admin/vehicle/apply/export?id=${c.id }"><span><font color="blue"><strong>导出</strong></font></span></a>
 					<a title="打印预览" href="admin/vehicle/apply/word?id=${c.id }" ><span><font color="blue"><strong>打印</strong></font></span></a>
 				</c:if>
-				
+				<c:if test="${loginStuff.role.level==7 }">
+					<a title="删除申请" href="javascript:;" onclick="member_del(${c.id});"><span><font color="red"><strong>删除</strong></font></span></a>
+				</c:if>
 	        </td>
 	        <!--操作结束  -->
 	        </tr> 
@@ -189,9 +191,9 @@ $(document).ready(function(){
 	$('.tablelist tbody tr:odd').addClass('odd');
 	
 	/*用户-删除*/
-	function member_del(obj,id){
+	function member_del(id){
 			$.ajax({
-				url: "admin/system/loginfo/del",
+				url: "admin/vehicle/apply/del",
 				type: 'POST',
 				async : false,
 				data: "id="+id

@@ -89,7 +89,7 @@ $(document).ready(function(){
 	        <c:if test="${loginStuff.role.level>3 }">
 	        <c:if test="${loginStuff.role.name!='司机' }">
 	        <c:if test="${c.status==1 }">
-	        <a href="admin/vehicle/apply/distributePage?vehicleId=${c.id }"><font color="green"><strong>分配员工到该车</strong></font></a>
+	        <a href="admin/vehicle/apply/distributePage?vehicleId=${c.id }"><font color="red"><strong>分配员工到该车</strong></font></a>
 	        </c:if>
 	        </c:if>
 	        </c:if>
@@ -180,8 +180,16 @@ $(document).ready(function(){
 				url: "admin/vehicle/stop",
 				type: 'get',
 				async : false,
-				data: "id="+id
-				});
+				data: "id="+id,
+ 				datatype:'json',
+				success:function(data){
+					if (data.info=='distrubuteError') {
+						alert("请先分配再派出！");
+					}else{
+						alert("车辆派出成功!");
+					};
+				}
+			});
 			location.reload(true);    
 	}
 	

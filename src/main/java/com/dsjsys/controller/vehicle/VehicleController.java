@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dsjsys.annotation.AuthLevel;
 import com.dsjsys.annotation.SystemControllerLog;
@@ -27,6 +28,8 @@ import com.dsjsys.service.VehicleApplyService;
 import com.dsjsys.service.VehicleService;
 import com.dsjsys.service.impl.StuffServiceImpl;
 import com.dsjsys.tools.core.mapper.util.Pager;
+import com.dsjsys.tools.core.util.JsonMessage;
+import com.dsjsys.tools.core.util.MessageUtil;
 
 @Controller
 @Transactional
@@ -91,12 +94,15 @@ public class VehicleController {
 		vehicleServiceImpl.update(vehicle);
 		return "success/success";
 	}
-	
+	@ResponseBody
 	@AuthLevel(level=AuthConfig.level3)
 	@SystemControllerLog(description="派出车辆")
 	@RequestMapping(value="stop",method=RequestMethod.GET)
-	public String stop(HttpServletRequest req,Long id){
+	public JsonMessage stop(HttpServletRequest req,Long id){
 		Vehicle vehicle = vehicleServiceImpl.fetch(id);
+		if(vehicle.getRemain()==vehicle.getCapacity()){
+			return new JsonMessage("distrubuteError");
+		}
 		vehicle.setStatus(0);
 		vehicleServiceImpl.update(vehicle);
 		
@@ -109,7 +115,7 @@ public class VehicleController {
 		/*********************************************************************************/
 		
 		
-		return "";
+		return new JsonMessage("success");
 	}
 	
 	@AuthLevel(level=AuthConfig.level3)

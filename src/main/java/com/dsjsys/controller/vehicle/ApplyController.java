@@ -242,6 +242,7 @@ public class ApplyController {
 	@SystemControllerLog(description="删除一条申请")
 	@RequestMapping(value="del",method=RequestMethod.POST)
 	public String delete(VehicleApply vehicleApply){
+		
 		vehicleApplyServiceImpl.deleteById(vehicleApply.getId());
 		return "success/success";
 	}
@@ -461,4 +462,5 @@ public class ApplyController {
 		vehicleApplyServiceImpl.update(vehicleApply);
 		return new JsonMessage("","","",Status.SUCCESS);
 	}
+	
 }

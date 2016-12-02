@@ -70,6 +70,10 @@ public class JsonMessage {
 	
 	public JsonMessage(){
 	}
+	
+	public JsonMessage(String info){
+		this.info=info;
+	}
 
 	@Override
 	public String toString() {
