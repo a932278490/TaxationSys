@@ -73,7 +73,7 @@ public class MessageServiceImpl implements MessageService {
 		for(int i =0;i<toStuff.size();i++){
 			Message message = new Message();
 			message.setStuffId(toStuff.get(i).getId());
-			message.setContent(fromStuff.getName()+content);
+			message.setContent(content);
 			this.messageMapperImpl.insert(message);
 		}
 	}

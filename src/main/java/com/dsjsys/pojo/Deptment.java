@@ -1,7 +1,13 @@
 package com.dsjsys.pojo;
 
 public class Deptment {
-    private Long id;
+    @Override
+	public String toString() {
+		return "Deptment [id=" + id + ", name=" + name + ", charge=" + charge
+				+ "]";
+	}
+
+	private Long id;
 
     private String name;
 

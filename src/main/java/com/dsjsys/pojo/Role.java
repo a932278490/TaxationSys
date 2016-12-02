@@ -1,7 +1,14 @@
 package com.dsjsys.pojo;
 
 public class Role {
-    private Long id;
+    @Override
+	public String toString() {
+		return "Role [id=" + id + ", name=" + name + ", level=" + level
+				+ ", locked=" + locked + ", deptId=" + deptId + ", stuffId="
+				+ stuffId + "]";
+	}
+
+	private Long id;
 
     private String name;
 

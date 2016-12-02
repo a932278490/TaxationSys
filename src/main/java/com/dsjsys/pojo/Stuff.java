@@ -1,7 +1,15 @@
 package com.dsjsys.pojo;
 
 public class Stuff {
-    private Long id;
+    @Override
+	public String toString() {
+		return "Stuff [id=" + id + ", deptId=" + deptId + ", name=" + name
+				+ ", tele=" + tele + ", phone=" + phone + ", password="
+				+ password + ", locked=" + locked + ", roleId=" + roleId
+				+ ", deptment=" + deptment + ", role=" + role + "]";
+	}
+
+	private Long id;
 
     private Long deptId;
 

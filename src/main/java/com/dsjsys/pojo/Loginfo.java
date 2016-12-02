@@ -3,7 +3,13 @@ package com.dsjsys.pojo;
 import java.util.Date;
 
 public class Loginfo {
-    private Long id;
+    @Override
+	public String toString() {
+		return "Loginfo [id=" + id + ", content=" + content + ", username="
+				+ username + ", date=" + date + "]";
+	}
+
+	private Long id;
 
     private String content;
 

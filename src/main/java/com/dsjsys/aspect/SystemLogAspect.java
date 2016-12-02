@@ -71,8 +71,10 @@ public  class SystemLogAspect {
             System.out.println("请求IP:" + ip);    
             //*========数据库日志=========*//    
             Loginfo log = new Loginfo(); 
-            log.setContent(getControllerMethodDescription(joinPoint));    
-/*            log.setMethod((joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));    
+            String content= getControllerMethodDescription(joinPoint);
+            content=content.replaceAll("null", "");
+            log.setContent(content);    
+/*          log.setMethod((joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));    
             log.setType("0");    
             log.setRequestIp(ip);    
             log.setExceptionCode( null);    
@@ -188,16 +190,48 @@ public  class SystemLogAspect {
         Object[] arguments = joinPoint.getArgs();    
         Class targetClass = Class.forName(targetName);    
         Method[] methods = targetClass.getMethods();    
-        String description = "";    
+        StringBuffer description = null;    
          for (Method method : methods) {    
              if (method.getName().equals(methodName)) {    
                 Class[] clazzs = method.getParameterTypes();    
                  if (clazzs.length == arguments.length) {    
-                    description = method.getAnnotation(SystemControllerLog.class).description();    
-                     break;    
+                    description = new StringBuffer(method.getAnnotation(SystemControllerLog.class).description());    
+                    for(int i=1;i<arguments.length;i++){
+                   	 	description.append(","+arguments[i]);
+                    }
+                    break;    
                 }    
             }    
         }    
-         return description;    
-    }    
+         return description.toString();    
+    }   
+     
+     /**  
+      * 用于获取控制层函数参数
+      *  
+      * @param joinPoint 切点  
+      * @return 方法描述  
+      * @throws Exception  
+      */    
+   /*   public  static String getControllerMethodArgs(ProceedingJoinPoint joinPoint)  throws Exception {    
+         String targetName = joinPoint.getTarget().getClass().getName();    
+         String methodName = joinPoint.getSignature().getName();    
+         Object[] arguments = joinPoint.getArgs();    
+         Class targetClass = Class.forName(targetName);    
+         Method[] methods = targetClass.getMethods();    
+         StringBuffer description = null;    
+          for (Method method : methods) {    
+              if (method.getName().equals(methodName)) {    
+                 Class[] clazzs = method.getParameterTypes();    
+                  if (clazzs.length == arguments.length) {    
+                     description = new StringBuffer(method.getAnnotation(SystemControllerLog.class).description());    
+                     for(int i=0;i<clazzs.length;i++){
+                    	 description.append(","+arguments[i]);
+                     }
+                     break;    
+                 }    
+             }    
+         }    
+          return description.toString();    
+     }    */
 }    

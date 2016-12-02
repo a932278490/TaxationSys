@@ -34,7 +34,7 @@ setTimeout(function(){
 setInterval(function(){
     Push();
     //alert("setInterval called");
-},10000);
+},15000);
 
 function Push(){
 	$.ajax({
@@ -46,11 +46,10 @@ function Push(){
 			if (data.status) {
 				$('#messageCount').html(data.content);
 				if(data.content>0){
-					$("#jplayer").jPlayer('play');
-					alert("有新的消息");
-					$("#messageClick").click();
+						$("#jplayer").jPlayer('play');
+						alert("有新的消息");
+						$("#messageClick").click();
 				}
-				
 			}else{
 			};
 		}

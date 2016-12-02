@@ -62,6 +62,7 @@ public class LoginController {
 			Deptment deptment = deptmentServiceImpl.fetch(stuff.getDeptId());
 			stuff.setDeptment(deptment);
 			session.setAttribute("loginStuff", stuff);
+			session.setAttribute("messageAdvice","true");
 		}
 		jsonMessage = new JsonMessage("","","admin/index",Status.SUCCESS);
 		return jsonMessage;

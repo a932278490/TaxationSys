@@ -58,7 +58,7 @@ public class MessageController {
 		return "admin/message/messageinfo_list";
 	}
 	
-	@AuthLevel(level=AuthConfig.level2)
+	@AuthLevel(level=AuthConfig.level1)
 	@SystemControllerLog(description="删除消息信息")
 	@RequestMapping(value="del",method=RequestMethod.POST)
 	public String delete(Message message){

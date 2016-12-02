@@ -37,6 +37,7 @@ import com.dsjsys.annotation.AuthLevel;
 import com.dsjsys.annotation.SystemControllerLog;
 import com.dsjsys.config.AuthConfig;
 import com.dsjsys.pojo.Deptment;
+import com.dsjsys.pojo.Message;
 import com.dsjsys.pojo.Role;
 import com.dsjsys.pojo.Stuff;
 import com.dsjsys.pojo.Vehicle;
@@ -48,6 +49,7 @@ import com.dsjsys.service.StuffService;
 import com.dsjsys.service.VehicleApplyService;
 import com.dsjsys.service.VehicleService;
 import com.dsjsys.tools.core.mapper.util.Pager;
+import com.dsjsys.tools.core.mapper.util.uuid.IdUtil;
 import com.dsjsys.tools.core.util.DateUtil;
 import com.dsjsys.tools.core.util.JsonMessage;
 import com.dsjsys.tools.core.util.Status;
@@ -93,7 +95,7 @@ public class ApplyController {
 	}
 	
 	@AuthLevel(level=AuthConfig.level1)
-	@SystemControllerLog(description="查看出车申请列表")
+	@SystemControllerLog(description="查看出车申请列表1")
 	@RequestMapping(value="list1",method=RequestMethod.GET)
 	public String list1(HttpServletRequest req,Integer currentPage,Integer pageSize){
 		Map<String,Object> condition=new HashMap<String,Object>();
@@ -109,6 +111,37 @@ public class ApplyController {
 	}
 	
 	@AuthLevel(level=AuthConfig.level1)
+	@SystemControllerLog(description="出车申请详情")
+	@RequestMapping(value="list2",method=RequestMethod.GET)
+	public String list2(HttpServletRequest req,Integer currentPage,Integer pageSize){
+		HttpSession session = req.getSession();
+		Stuff loginStuff = (Stuff)session.getAttribute("loginStuff");
+		List<Message> messageList = messageServiceImpl.findList("stuffId", loginStuff.getId());
+		Iterator<Message> it = messageList.iterator();
+		List<VehicleApply> vehicleApplyList = new ArrayList<VehicleApply>();
+		while(it.hasNext()){
+			Message message = (Message)it.next();
+			int len = message.getContent().split(":").length;
+			if(len<2){
+				messageServiceImpl.deleteById(message.getId());
+				continue;
+			}
+			Long applyId= Long.parseLong(message.getContent().split(":")[1]);
+			VehicleApply vehicleApply = vehicleApplyServiceImpl.fetch(applyId);
+			vehicleApply.setDeptment(deptmentServiceImpl.fetch(vehicleApply.getDeptId()));
+			vehicleApply.setStuff(stuffServiceImpl.fetch(vehicleApply.getStuffId()));
+			vehicleApply.setVehicle(vehicleServiceImpl.fetch(vehicleApply.getVehicleId()));
+			vehicleApplyList.add(vehicleApply);
+			messageServiceImpl.deleteById(message.getId());
+		}
+		if(loginStuff.getDeptment().getName().equals("机关车队")){
+			return "redirect:/admin/vehicle/list";
+		}
+		req.setAttribute("vehicleApplyList", vehicleApplyList);
+		
+		return "admin/vehicle/apply/apply_list2";
+	}
+	@AuthLevel(level=AuthConfig.level1)
 	@RequestMapping(value="add",method=RequestMethod.GET)
 	public String add(HttpServletRequest req){
 		List<Deptment> deptmentList = deptmentServiceImpl.findAll();
@@ -120,18 +153,19 @@ public class ApplyController {
 	@SystemControllerLog(description="新增一条申请")
 	@RequestMapping(value="save",method=RequestMethod.POST)
 	public String save(HttpServletRequest req,VehicleApply vehicleApply,String beginDate ,String endDate){
+		vehicleApply.setId(IdUtil.getDatetimeId());
 		vehicleApply.setBeginDate(DateUtil.parse(beginDate));
 		vehicleApply.setEndDate(DateUtil.parse(endDate));
 		vehicleApply.setOrderDate(new Date());
 		vehicleApply.setStatus(0);
-		vehicleApplyServiceImpl.save(vehicleApply);
+		VehicleApply vehicleApplyNew = vehicleApplyServiceImpl.save(vehicleApply);
 		/***************************消息发送处理，可以放在切面类中**************************************************************/
 		Stuff loginStuff = (Stuff)req.getSession().getAttribute("loginStuff");
 		Deptment deptment = this.deptmentServiceImpl.fetch(loginStuff.getDeptId());
 		List<Stuff> stuffList = new ArrayList<Stuff>();
 		Stuff stuffChange = stuffServiceImpl.findOne("name", deptment.getCharge());
 		stuffList.add(stuffChange);
-		this.messageServiceImpl.sendMessage(loginStuff, stuffList, "新增一条申请！");
+		this.messageServiceImpl.sendMessage(loginStuff, stuffList, "新增一条申请！申请编号为:"+vehicleApplyNew.getId());
 		/*********************************************************************************/
 		return "success/success";
 	}
@@ -160,7 +194,7 @@ public class ApplyController {
 			Stuff stuff = this.stuffServiceImpl.fetch(stuffId);
 			List<Stuff> stuffList = new ArrayList<Stuff>();
 			stuffList.add(stuff);
-			this.messageServiceImpl.sendMessage(loginStuff, stuffList, "部门负责人审批通过！");
+			this.messageServiceImpl.sendMessage(loginStuff, stuffList, loginStuff.getName()+"部门负责人审批通过！审批编号:"+applyId);
 		}else if(loginStuff.getRole().getLevel()==3){
 			VehicleApply vehicleApply = new VehicleApply();
 			vehicleApply.setId(applyId);
@@ -171,7 +205,7 @@ public class ApplyController {
 			List<Stuff> stuffList = new ArrayList<Stuff>();
 			stuffList.add(stuff1);
 			stuffList.add(stuff2);
-			this.messageServiceImpl.sendMessage(loginStuff, stuffList, ",局领导审批通过！");
+			this.messageServiceImpl.sendMessage(loginStuff, stuffList, loginStuff.getName()+",局领导审批通过！审批编号:"+applyId);
 		}else{
 			VehicleApply vehicleApply = new VehicleApply();
 			vehicleApply.setId(applyId);

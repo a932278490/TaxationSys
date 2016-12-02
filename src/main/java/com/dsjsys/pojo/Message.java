@@ -1,7 +1,13 @@
 package com.dsjsys.pojo;
 
 public class Message {
-    private Long id;
+    @Override
+	public String toString() {
+		return "Message [id=" + id + ", content=" + content + ", stuffId="
+				+ stuffId + "]";
+	}
+
+	private Long id;
 
     private String content;
 

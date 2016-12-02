@@ -63,6 +63,7 @@ public class VehicleController {
 	}
 	
 	@AuthLevel(level=AuthConfig.level2)
+	@SystemControllerLog(description="新增车辆信息")
 	@RequestMapping(value="save",method=RequestMethod.POST)
 	public String save(Vehicle vehicle){
 		vehicle.setRemain(vehicle.getCapacity());
@@ -83,6 +84,7 @@ public class VehicleController {
 	}
 	
 	@AuthLevel(level=AuthConfig.level2)
+	@SystemControllerLog(description="更新车辆信息")
 	@RequestMapping(value="saveUpdate",method=RequestMethod.POST)
 	public String saveUpdate(HttpServletRequest req,Vehicle vehicle){
 		vehicle.setRemain(vehicle.getCapacity());
@@ -101,9 +103,9 @@ public class VehicleController {
 		/***************************消息发送处理，可以放在切面类中**************************************************************/
 		Stuff loginStuff = (Stuff)req.getSession().getAttribute("loginStuff");
 		List<Stuff> stuffList = new ArrayList<Stuff>();
-		Stuff driver = stuffServiceImpl.findOne("name", vehicle.getDriver());
-		stuffList.add(driver);
-		this.messageServiceImpl.sendMessage(loginStuff, stuffList, "新增一条申请！");
+		stuffList = stuffServiceImpl.findList("deptId", "20");
+		
+		this.messageServiceImpl.sendMessage(loginStuff, stuffList, loginStuff.getName()+"派出车辆");
 		/*********************************************************************************/
 		
 		

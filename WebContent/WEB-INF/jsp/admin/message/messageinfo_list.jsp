@@ -36,7 +36,7 @@ $(document).ready(function(){
 
 /*批量删除*/
 function datadel(){
-		var chks=$("input:checked");//获取所有选中的checkbox,chks是一个元素数组
+	/* 	var chks=$("input:checked");//获取所有选中的checkbox,chks是一个元素数组
 		for(var i=0;i<chks.length;i++){
 			$.ajax({
 				url: "admin/message/del",
@@ -44,8 +44,9 @@ function datadel(){
 				data: "id="+chks[i].value,
 				async : false
 				});
-		}
-		parent.frames['rightFrame'].location='<%=basePath%>admin/vehicle/apply/list1';
+		} */
+			parent.frames['rightFrame'].location="<%=basePath%>admin/vehicle/apply/list2";
+
 }
 </script>
 

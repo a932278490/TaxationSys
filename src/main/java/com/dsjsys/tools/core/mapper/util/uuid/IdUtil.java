@@ -1,5 +1,8 @@
 package com.dsjsys.tools.core.mapper.util.uuid;
 
+import java.util.Calendar;
+import java.util.Date;
+
 
 /**
  * <p>
@@ -51,5 +54,18 @@ public class IdUtil {
 
 		return myRandom;
 
+	}
+	
+	public static long getDatetimeId(){
+		Calendar c = Calendar.getInstance();
+		c.setTime(new Date());
+		StringBuffer idStr= new StringBuffer();
+		idStr.append(c.get(Calendar.YEAR));
+		idStr.append(c.get(Calendar.MONTH)+1);
+		idStr.append(c.get(Calendar.DAY_OF_MONTH));
+		idStr.append(c.get(Calendar.HOUR_OF_DAY));
+		idStr.append(c.get(Calendar.MINUTE));
+		idStr.append(c.get(Calendar.SECOND));
+		return Long.parseLong(idStr.toString());
 	}
 }

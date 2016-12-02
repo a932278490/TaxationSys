@@ -3,7 +3,18 @@ package com.dsjsys.pojo;
 import java.util.Date;
 
 public class VehicleApply {
-    private Long id;
+    @Override
+	public String toString() {
+		return "VehicleApply [id=" + id + ", deptId=" + deptId + ", stuffId="
+				+ stuffId + ", stuff=" + stuff + ", pcount=" + pcount
+				+ ", pname=" + pname + ", beginDate=" + beginDate
+				+ ", endDate=" + endDate + ", destination=" + destination
+				+ ", reason=" + reason + ", orderDate=" + orderDate
+				+ ", status=" + status + ", vehicleId=" + vehicleId
+				+ ", vehicle=" + vehicle + ", deptment=" + deptment + "]";
+	}
+
+	private Long id;
 
     private Long deptId;
     

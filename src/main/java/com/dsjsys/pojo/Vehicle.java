@@ -1,7 +1,14 @@
 package com.dsjsys.pojo;
 
 public class Vehicle {
-    private Long id;
+    @Override
+	public String toString() {
+		return "Vehicle [id=" + id + ", licence=" + licence + ", driver="
+				+ driver + ", capacity=" + capacity + ", remain=" + remain
+				+ ", status=" + status + ", applyId=" + applyId + "]";
+	}
+
+	private Long id;
 
     private String licence;
 
