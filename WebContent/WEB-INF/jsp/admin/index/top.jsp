@@ -46,9 +46,11 @@ function Push(){
 			if (data.status) {
 				$('#messageCount').html(data.content);
 				if(data.content>0){
+					if($('#messageAdvice').val()!="0"){
 						$("#jplayer").jPlayer('play');
 						alert("有新的消息");
 						$("#messageClick").click();
+					}
 				}
 			}else{
 			};
@@ -108,8 +110,8 @@ function messageList(){
     <span>${loginStuff.name }</span>
     <i>消息</i>
     <span><a onclick="parent.frames['rightFrame'].location='<%=basePath%>admin/message/list'" id="messageClick"  target="rightFrame"><b id="messageCount" >0</b></a></span>
-    </div>    
-    
+   	 </div>    
+    <input type="hidden" id="messageAdvice" value="1" />
     </div>
 
 </body>
