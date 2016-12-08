@@ -382,7 +382,8 @@ public class ApplyController {
 	@RequestMapping(value="distributePage",method=RequestMethod.GET)
 	public String distribute(HttpServletRequest req,Integer currentPage,Integer pageSize,Long vehicleId){
 		Map<String,Object> condition=new HashMap<String,Object>();
-		Pager<VehicleApply> vehicleApplyPager = vehicleApplyServiceImpl.queryPage(condition, currentPage, pageSize,null,null);
+		pageSize = 300;
+		Pager<VehicleApply> vehicleApplyPager = vehicleApplyServiceImpl.queryPage(condition, currentPage, pageSize,"order_date","DESC");
 		for(int i=0;i<vehicleApplyPager.getDataList().size();i++){
 			Deptment deptment = deptmentServiceImpl.fetch(vehicleApplyPager.getDataList().get(i).getDeptId());
 			Vehicle vehicle = vehicleServiceImpl.fetch(vehicleApplyPager.getDataList().get(i).getVehicleId());
